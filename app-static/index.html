@@ -2,11 +2,150 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Site Statique</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechCorp - Solutions Numériques</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Bienvenue sur le site statique</h1>
-    <p>Ce site est servi par Nginx.</p>
-    <p>Sous-domaine : static.localhost</p>
+    <header>
+        <nav>
+            <a href="#" data-page="home" class="nav-link active">Accueil</a>
+            <a href="#" data-page="services" class="nav-link">Services</a>
+            <a href="#" data-page="about" class="nav-link">À Propos</a>
+            <a href="#" data-page="contact" class="nav-link">Contact</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Page Accueil -->
+        <div id="home" class="page active">
+            <div class="hero">
+                <h1>Bienvenue chez TechCorp</h1>
+                <p>Solutions numériques innovantes pour votre entreprise</p>
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
+                    Site servi par Nginx | Sous-domaine: static.localhost
+                </p>
+            </div>
+            <div class="services">
+                <div class="service-card">
+                    <h3>Innovation</h3>
+                    <p>Nous créons des solutions technologiques avant-gardistes adaptées à vos besoins.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Expertise</h3>
+                    <p>Notre équipe possède plus de 20 ans d'expérience dans le secteur IT.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Partenariat</h3>
+                    <p>Nous travaillons en étroite collaboration avec nos clients pour assurer la réussite.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Services -->
+        <div id="services" class="page">
+            <div class="hero">
+                <h1>Nos Services</h1>
+                <p>Découvrez notre gamme complète de solutions</p>
+            </div>
+            <div class="services">
+                <div class="service-card">
+                    <h3>Développement Web</h3>
+                    <p>Création de sites web modernes et performants, responsive et optimisés SEO.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Applications Mobiles</h3>
+                    <p>Développement d'applications iOS et Android natives ou hybrides.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Consulting IT</h3>
+                    <p>Audit, conseil et stratégie technologique pour optimiser votre infrastructure.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Cloud & DevOps</h3>
+                    <p>Migration cloud, containerisation et automatisation de vos déploiements.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Data & IA</h3>
+                    <p>Analyse de données, machine learning et intelligence artificielle.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Maintenance</h3>
+                    <p>Support technique 24/7 et maintenance de vos systèmes informatiques.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page À Propos -->
+        <div id="about" class="page">
+            <div class="hero">
+                <h1>À Propos de TechCorp</h1>
+                <p>Votre partenaire de confiance en solutions numériques</p>
+            </div>
+            <div class="about-content">
+                <h2>Qui sommes-nous ?</h2>
+                <p>TechCorp est une entreprise spécialisée dans les solutions informatiques innovantes. Fondée en 2005, nous avons accompagné des centaines d'entreprises dans leur transformation numérique.</p>
+                <p style="margin-top: 1rem;">Notre mission est simple : transformer les défis technologiques en opportunités de croissance pour nos clients.</p>
+            </div>
+            <div class="about-content">
+                <h2>Notre Équipe</h2>
+            </div>
+            <div class="team">
+                <div class="team-member">
+                    <h3>Jean Dupont</h3>
+                    <p><strong>PDG & Fondateur</strong></p>
+                    <p>20 ans d'expérience en direction informatique</p>
+                </div>
+                <div class="team-member">
+                    <h3>Marie Martin</h3>
+                    <p><strong>CTO</strong></p>
+                    <p>Spécialiste en architecture cloud et DevOps</p>
+                </div>
+                <div class="team-member">
+                    <h3>Pierre Bernard</h3>
+                    <p><strong>Lead Developer</strong></p>
+                    <p>Expert fullstack JavaScript et Python</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page Contact -->
+        <div id="contact" class="page">
+            <div class="hero">
+                <h1>Nous Contacter</h1>
+                <p>N'hésitez pas à nous laisser un message</p>
+            </div>
+            <form id="contactForm">
+                <div>
+                    <label for="name">Nom *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div>
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="phone">Téléphone</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                <div>
+                    <label for="subject">Sujet *</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div>
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit">Envoyer</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 TechCorp. Tous droits réservés.</p>
+        <p>Site statique servi par Nginx</p>
+    </footer>
+
+    <script src="js/app.js"></script>
 </body>
 </html>

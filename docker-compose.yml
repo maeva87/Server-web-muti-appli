@@ -1,7 +1,10 @@
 version: '3.8'
+
 services:
-  reverse-proxy:
-    image: nginx:stable
+  # Reverse Proxy Nginx
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
     ports:
       - "80:80"
       - "443:443"
@@ -11,15 +14,28 @@ services:
     depends_on:
       - app-node
       - app-static
+    restart: unless-stopped
 
+  # API Node.js
   app-node:
-    build: ./app-node
+    build: 
+      context: ./app-node
+      dockerfile: Dockerfile
+    container_name: app-node
     restart: unless-stopped
     environment:
       - PORT=3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./app-node/data.db:/usr/src/app/data.db
 
+  # Site Statique Nginx
   app-static:
-    image: nginx:stable
+    image: nginx:stable-alpine
+    container_name: app-static
     volumes:
       - ./app-static:/usr/share/nginx/html:ro
+    ports:
+      - "8080:80"
     restart: unless-stopped
