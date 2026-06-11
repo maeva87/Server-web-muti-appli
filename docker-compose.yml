@@ -1,25 +1,74 @@
-version: '3.8'
+networks:
+  frontend:
+    driver: bridge
+  backend_wp:
+    driver: bridge
+    internal: true
+  backend_node:
+    driver: bridge
+    internal: true
+
 services:
-  reverse-proxy:
-    image: nginx:stable
+  nginx:
+    image: nginx:latest
     ports:
       - "80:80"
       - "443:443"
+    networks:
+      - frontend
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
       - ./certs:/etc/nginx/certs:ro
-    depends_on:
-      - app-node
-      - app-static
+    restart: always
 
-  app-node:
-    build: ./app-node
-    restart: unless-stopped
+  wordpress:
+    image: wordpress:latest
+    networks:
+      - frontend
+      - backend_wp
     environment:
-      - PORT=3000
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: wpuser
+      WORDPRESS_DB_PASSWORD: wppassword
+      WORDPRESS_DB_NAME: wpdb
+    restart: always
 
-  app-static:
-    image: nginx:stable
-    volumes:
-      - ./app-static:/usr/share/nginx/html:ro
-    restart: unless-stopped
+  mysql:
+    image: mysql:8
+    networks:
+      - backend_wp
+    expose:
+      - "3306"
+    environment:
+      MYSQL_DATABASE: wpdb
+      MYSQL_USER: wpuser
+      MYSQL_PASSWORD: wppassword
+      MYSQL_ROOT_PASSWORD: rootpassword
+    restart: always
+
+  nodeapp1:
+    image: node:18-alpine
+    networks:
+      - frontend
+      - backend_node
+    working_dir: /app
+    command: sh -c "echo 'const http=require(\"http\");http.createServer((req,res)=>{res.end(\"Node app - Instance 1\")}).listen(3000)' > app.js && node app.js"
+    restart: always
+
+  nodeapp2:
+    image: node:18-alpine
+    networks:
+      - frontend
+      - backend_node
+    working_dir: /app
+    command: sh -c "echo 'const http=require(\"http\");http.createServer((req,res)=>{res.end(\"Node app - Instance 2\")}).listen(3000)' > app.js && node app.js"
+    restart: always
+
+  nodeapp3:
+    image: node:18-alpine
+    networks:
+      - frontend
+      - backend_node
+    working_dir: /app
+    command: sh -c "echo 'const http=require(\"http\");http.createServer((req,res)=>{res.end(\"Node app - Instance 3\")}).listen(3000)' > app.js && node app.js"
+    restart: always
