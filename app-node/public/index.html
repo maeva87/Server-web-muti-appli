@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>TechCorp — Infrastructure</title>
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+	<header>
+		<div class="nav-inner">
+			<span class="logo">TechCorp <span class="logo-tag">Infra</span></span>
+			<nav>
+				<a href="#projet">Le projet</a>
+				<a href="#archi">Architecture</a>
+				<a href="#sites">Les sites</a>
+				<a href="#stack">Stack</a>
+			</nav>
+		</div>
+	</header>
+
+	<main>
+
+		<!-- HERO -->
+		<section class="hero">
+			<div class="container">
+				<p class="eyebrow">Serveur web multi-applications</p>
+				<h1>Deux sites,<br>un seul serveur</h1>
+				<p class="hero-sub">
+					Déploiement de plusieurs applications web sur une même machine via Docker,
+					Nginx en reverse proxy et certificats TLS.
+				</p>
+				<div class="hero-badges">
+					<span class="badge">Docker</span>
+					<span class="badge">Nginx</span>
+					<span class="badge">TLS</span>
+					<span class="badge">Node.js</span>
+					<span class="badge">HTML/CSS</span>
+				</div>
+			</div>
+		</section>
+
+		<!-- LE PROJET -->
+		<section id="projet" class="section">
+			<div class="container">
+				<h2 class="section-title">Le projet</h2>
+				<p class="section-text">
+					L'objectif est de montrer qu'il est possible d'héberger plusieurs applications
+					développées dans des technologies différentes sur un même serveur, accessibles
+					chacune via leur propre sous-domaine en HTTPS.
+				</p>
+				<div class="cards">
+					<div class="card">
+						<div class="card-icon">🌐</div>
+						<h3>Sous-domaines distincts</h3>
+						<p>Chaque application est accessible via son propre sous-domaine. Nginx redirige le trafic vers le bon conteneur.</p>
+					</div>
+					<div class="card">
+						<div class="card-icon">🔒</div>
+						<h3>HTTPS partout</h3>
+						<p>Chaque sous-domaine dispose d'un certificat TLS. Les connexions HTTP sont automatiquement redirigées vers HTTPS.</p>
+					</div>
+					<div class="card">
+						<div class="card-icon">📦</div>
+						<h3>Conteneurs isolés</h3>
+						<p>Chaque application tourne dans son propre conteneur Docker. Les dépendances sont isolées et le déploiement est reproductible.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- ARCHITECTURE -->
+		<section id="archi" class="section section-alt">
+			<div class="container">
+				<h2 class="section-title">Architecture</h2>
+				<p class="section-text">Le flux d'une requête entrante jusqu'à l'application.</p>
+				<div class="archi-diagram">
+					<div class="archi-box archi-box--client">
+						<span class="archi-icon">💻</span>
+						<strong>Navigateur</strong>
+						<small>static.localhost<br>node.localhost</small>
+					</div>
+					<div class="archi-arrow">
+						<span>HTTPS :443</span>
+						<div class="arrow-line"></div>
+					</div>
+					<div class="archi-box archi-box--nginx">
+						<span class="archi-icon">⚙️</span>
+						<strong>Nginx</strong>
+						<small>Reverse proxy<br>Terminaison TLS</small>
+					</div>
+					<div class="archi-arrows-split">
+						<div class="archi-arrow-branch">
+							<div class="branch-line"></div>
+							<span>static.localhost</span>
+						</div>
+						<div class="archi-arrow-branch">
+							<div class="branch-line"></div>
+							<span>node.localhost</span>
+						</div>
+					</div>
+					<div class="archi-apps">
+						<div class="archi-box archi-box--app">
+							<span class="archi-icon">📄</span>
+							<strong>Site statique</strong>
+							<small>HTML / CSS / JS<br>servi par Nginx</small>
+						</div>
+						<div class="archi-box archi-box--app">
+							<span class="archi-icon">🟢</span>
+							<strong>App Node.js</strong>
+							<small>Express.js<br>port 3000</small>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- LES SITES -->
+		<section id="sites" class="section">
+			<div class="container">
+				<h2 class="section-title">Les deux sites</h2>
+				<div class="sites-grid">
+					<div class="site-card">
+						<div class="site-header">
+							<span class="site-dot site-dot--green"></span>
+							<code>static.localhost</code>
+						</div>
+						<h3>Site vitrine TechCorp</h3>
+						<p>Site HTML/CSS statique présentant l'entreprise TechCorp. Servi directement par Nginx sans passer par un runtime.</p>
+						<ul class="site-details">
+							<li>HTML, CSS, JavaScript vanilla</li>
+							<li>Servi par Nginx (fichiers statiques)</li>
+							<li>Navigation SPA côté client</li>
+							<li>Formulaire de contact</li>
+						</ul>
+					</div>
+					<div class="site-card">
+						<div class="site-header">
+							<span class="site-dot site-dot--blue"></span>
+							<code>node.localhost</code>
+						</div>
+						<h3>Application Node.js</h3>
+						<p>Application Express.js présentant l'infrastructure du projet. Nginx fait office de reverse proxy vers le port 3000.</p>
+						<ul class="site-details">
+							<li>Node.js + Express</li>
+							<li>Proxifié par Nginx</li>
+							<li>Conteneur Docker dédié</li>
+							<li>Ce site que vous lisez</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- STACK -->
+		<section id="stack" class="section section-alt">
+			<div class="container">
+				<h2 class="section-title">Stack technique</h2>
+				<div class="stack-list">
+					<div class="stack-item">
+						<div class="stack-name">Docker & Docker Compose</div>
+						<div class="stack-desc">Conteneurisation de chaque application. Le <code>docker-compose.yml</code> orchestre l'ensemble des services.</div>
+					</div>
+					<div class="stack-item">
+						<div class="stack-name">Nginx</div>
+						<div class="stack-desc">Reverse proxy qui reçoit toutes les requêtes entrantes et les redirige selon le sous-domaine demandé. Gère aussi la terminaison TLS.</div>
+					</div>
+					<div class="stack-item">
+						<div class="stack-name">Certificats TLS</div>
+						<div class="stack-desc">Certificats auto-signés générés pour chaque sous-domaine. En production, Let's Encrypt peut être utilisé à la place.</div>
+					</div>
+					<div class="stack-item">
+						<div class="stack-name">Node.js + Express</div>
+						<div class="stack-desc">Runtime JavaScript côté serveur. Express gère le routage HTTP et sert les fichiers statiques de cette application.</div>
+					</div>
+					<div class="stack-item">
+						<div class="stack-name">HTML / CSS / JS</div>
+						<div class="stack-desc">Le site vitrine est entièrement statique. Aucun runtime nécessaire, Nginx le sert directement depuis le système de fichiers.</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	</main>
+
+	<footer>
+		<div class="container footer-inner">
+			<span>TechCorp © 2026</span>
+			<span>Node.js · Express · Docker · Nginx</span>
+		</div>
+	</footer>
+
+</body>
+</html>
